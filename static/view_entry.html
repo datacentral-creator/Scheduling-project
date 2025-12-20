@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Learning Effort for {{date}}:{{time}}</title>
+        <style>
+            body {
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                background: #f5f7fa;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+            }
+            .card {
+                background: #fff;
+                padding: 30px;
+                border-radius: 10px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                text-align: center;
+                max-width: 400px;
+            }
+            h1 {
+                color: #2c3e50;
+                margin-bottom: 20px;
+            }
+            p {
+                font-size: 1.2rem;
+                margin: 10px 0;
+            }
+            .retention_factor {
+                font-weight: bold;
+                color: #3498db;
+            }
+            .units {
+                font-style: italic;
+                color: #34495e;
+            }
+            #banner{
+                text-decoration:none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="card">
+            <h1>Learning Effort</h1>
+            <a href="/get_task/{{task}}"><h2 id="banner">Task: {{task}}</h2></a>
+            <p>Date: <span>{{date}}</span></p>
+            <p>Time: <span>{{time}}</span></p>
+            <p class="effort">Effort: {{effort}} {{units}}</p>
+            <p class="retention_factor">Retention factor: {{retention_factor*100}}%</p>
+            <p class="retention_factor" id="retention_min">Minimum retention required to indicate an increase in memory strength: {{retention_min}}</p>
+        </div>
+        <script>
+            const rention_min = {{Retention_min | tojson}}
+            if (rention_min == null){
+                const retention_min = document.getElementById("retention_min")
+                retention_min.remove()
+            }
+        </script>
+    </body>
+</html>

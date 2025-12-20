@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View setpoints</title>
+    <style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+        background: #f5f7fa;
+        display: flex;
+        justify-content: center;
+    }
+
+    #Entries {
+        width: 60%;
+        max-height: 90vh;
+        overflow-y: auto;
+        margin-top: 20px;
+        padding: 20px;
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    #Entries div {
+        background: #fafafa;
+        padding: 15px;
+        margin-bottom: 12px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    #Entries p:first-child {
+        font-weight: bold;
+        font-size: 1.1rem;
+        color: #2c3e50;
+        margin-bottom: 6px;
+    }
+
+    #Entries p:last-child {
+        color: #34495e;
+        margin: 0;
+    }
+</style>
+</head>
+<body>
+<div id="Entries">
+
+</div>
+<script>
+    const Entries = document.getElementById("Entries")
+    const keys = {{Keys|tojson}}
+    const entries = {{Entries|tojson}}
+    keys.forEach((key,index)=>{
+        const div_element = document.createElement("div")
+        Entries.appendChild(div_element)
+        const p_element = document.createElement("p")
+        p_element.textContent = key
+        div_element.appendChild(p_element)
+        const p_element_two = document.createElement("p")
+        p_element_two.textContent = entries[index][0] + ": " + entries[index][1] * 100 + "%"
+        div_element.appendChild(p_element_two)
+        const p_element_three = document.createElement("p")
+        const Current_date = new Date()
+        p_element_three.textContent = "Current date: " + Current_date.toString()
+        div_element.appendChild(p_element_three)
+        const p_element_four = document.createElement("p")
+        let Desired_date = window.location.href.split("/")
+        Desired_date = Desired_date[Desired_date.length-1]
+        Desired_date += "T" + key
+        Desired_date = new Date(Desired_date)
+        p_element_four.textContent = "Desired date: " + Desired_date.toString()
+        div_element.appendChild(p_element_four)
+        const Time_difference = (Desired_date - Current_date)/(1000*60)
+        const Strength = Time_difference/(-Math.log(entries[index][1]))
+        const p_element_five = document.createElement("p")
+        p_element_five.textContent= "Current memory strength should be: "+Strength
+        div_element.appendChild(p_element_five)
+    })
+</script>
+</body>
+</html>

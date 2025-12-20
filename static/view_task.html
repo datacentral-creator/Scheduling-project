@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View task {{task}}</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 600px;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+        form {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        button {
+            padding: 12px;
+            background: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex flex-grid">
+    <div class="card">
+        <h1>Task: {{task}}</h1>
+        <p>Memory Strength: {{Strength|tojson}}</p>
+        <canvas id="retention_chart"></canvas>
+
+        <!-- Stylish form -->
+        <form id="taskForm" method="GET">
+            <input type="text" id="scaleInput" name="scale" placeholder='Scale: "minutes/hours/days"' required>
+            <input type="number" id="periodInput" name="period" placeholder="Period:" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <div class="card" id="card_two">
+        <form  id="SetpointForm" action="/Create_setpoint/{{task}}" method="POST">
+            <h1>Create setpoint</h1>
+            <input type="number" id="retention_input" name="retention_input" placeholder="Retention factor SP(%)"/>
+            <label for="date">Date/time:</label>
+            <div style="display:flex; gap:10px;">
+              <input type="date" id="date" name="date">
+              <input type="time" id="time" name="time">
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    </div>
+    <script>
+
+        // Pass Jinja variable into JS
+        const strength = {{Strength | tojson}};
+        if (strength != null){
+             let scale = {{scale | tojson}};
+        //Maybe multiply by 60 but theoretically it should be this?
+        scale = (scale=="minutes")*60 + (scale=="hours")*60*60 + (scale=="days")*60*60*24;
+
+        // Generate t values (x-axis)
+        const tValues = [];
+        const fValues = [];
+        for (let t = 1; t <= {{period|tojson}}; t++) {
+            tValues.push(t);
+            fValues.push(Math.min(100, 1/Math.exp(-(strength /(t*scale)))));
+        }
+
+        const ctx = document.getElementById('retention_chart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: tValues,
+                datasets: [{
+                    label: 'Retention factor(%)',
+                    data: fValues,
+                    borderColor: '#3498db',
+                    backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                    fill: true,
+                    tension: 0.2
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Time ({{scale}})'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Retention factor(%)'
+                        },
+                        min: 0,
+                        max: 100
+                    }
+                }
+            }
+        });
+
+        // Handle form submission dynamically
+        document.getElementById("taskForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const scaleVal = document.getElementById("scaleInput").value;
+            const periodVal = document.getElementById("periodInput").value;
+            const task = "{{task}}";  // Jinja injects task name
+            const actionUrl = `/get_task/${task}/${scaleVal}/${periodVal}`;
+            window.location.href = actionUrl; // redirect
+        });
+        }else{
+            const Canvas = document.getElementById("retention_chart")
+            const ctx = Canvas.getContext("2d")
+            ctx.fillText("Please add more sessions to get accurate data",10,80);
+            const Task_form = document.getElementById("taskForm")
+            Task_form.remove()
+            const SetPointForm = document.getElementById("SetpointForm")
+            SetPointForm.remove()
+        }
+    </script>
+</body>
+</html>
