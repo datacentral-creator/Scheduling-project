@@ -256,6 +256,5 @@ Because both domains use the same mathematical structure, your system could evol
 - reaction time  
 
 All using the same exponential‑decay + hypothesis‑testing framework.
-
+I also plan to integrate this project into my main project <a href="https://github.com/datacentral-creator/Datacentral">datacentral</a>
 ---
-
