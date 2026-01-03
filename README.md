@@ -257,6 +257,6 @@ Because both domains use the same mathematical structure, your system could evol
 
 All using the same exponential‑decay + hypothesis‑testing framework.
 
-I have also integrated this into my main project <a href="https://github.com/datacentral-creator/Datacentral">datacentral</a> as an addon.
+I have also integrated this into my main project <a href="https://github.com/datacentral-creator/Datacentral">datacentral</a> as an extension.
 
 ---
