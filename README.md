@@ -306,6 +306,189 @@ This enables:
 
 ---
 
+# 🧭 Comparison to State‑of‑the‑Art Spaced Repetition Systems
+
+Modern spaced repetition systems (SRS) fall into a few major families.  
+My system sits in a unique position among them — borrowing ideas from cognitive science, statistical modelling, and performance‑based learning.
+
+Below is a comparison with the most influential SRS models in use today.
+
+---
+
+# 🟦 1. **Anki (SM‑2 and Variants)**
+
+### **How Anki Works**
+- Uses the SM‑2 algorithm (1987) or small variations.
+- User rates each card: *Again / Hard / Good / Easy*.
+- Scheduling is based on:
+  - a difficulty factor  
+  - an interval  
+  - a simple multiplicative update rule  
+
+### **Strengths**
+- Simple, predictable, easy to use.
+- Works well for large decks of factual recall.
+- Huge ecosystem and community.
+
+### **Limitations**
+- User ratings are subjective.
+- No statistical modelling of uncertainty.
+- No performance‑based measurement (e.g., time, repetitions).
+- Not suitable for procedural or physical skills.
+- Forgetting curve is implicit, not explicitly modelled.
+
+### **Compared to My System**
+| Feature | Anki | My System |
+|--------|------|-----------|
+| Explicit forgetting curve | ❌ | ✅ |
+| Objective performance input | ❌ | ✅ (minutes/repetitions) |
+| Statistical hypothesis testing | ❌ | ✅ |
+| Predictive scheduling via setpoints | ❌ | ✅ |
+| Adaptive difficulty | Basic | Advanced, asymmetric |
+| Supports physical/procedural skills | ❌ | ✅ |
+
+My system is **more mathematical, more adaptive, and more general‑purpose**.
+
+---
+
+# 🟩 2. **FSRS (Free Spaced Repetition Scheduler)**
+
+FSRS is currently the most advanced open‑source SRS algorithm.
+
+### **How FSRS Works**
+- Uses machine‑learned parameters.
+- Models:
+  - stability (S)
+  - difficulty (D)
+  - retrievability (R)
+- Predicts next interval using a learned forgetting curve.
+- Optimizes for long‑term retention under time constraints.
+
+### **Strengths**
+- State‑of‑the‑art for flashcard‑based learning.
+- Strong empirical performance.
+- Predictive rather than reactive.
+
+### **Limitations**
+- Requires large datasets to train well.
+- Still relies on user ratings (Good/Hard/Easy).
+- Not designed for:
+  - physical skills  
+  - multi‑step tasks  
+  - time‑based performance  
+- Complexity makes it hard to understand or modify.
+
+### **Compared to My System**
+| Feature | FSRS | My System |
+|--------|------|-----------|
+| Machine‑learned parameters | ✅ | ❌ (explicit formulas) |
+| User ratings | Required | Not used |
+| Objective performance | ❌ | ✅ |
+| Statistical hypothesis testing | ❌ | ✅ |
+| Supports procedural/physical tasks | ❌ | ✅ |
+| Transparent & interpretable | ❌ | ✅ |
+
+My system is **more interpretable**, **more flexible**, and **less dependent on subjective ratings**.
+
+---
+
+# 🟧 3. **SuperMemo 17+ (SM‑17, SM‑18)**
+
+SuperMemo’s modern algorithms are proprietary but known to be extremely complex.
+
+### **How SM‑17 Works (publicly known aspects)**
+- Uses multi‑parameter models of forgetting.
+- Predicts optimal intervals.
+- Incorporates stability, retrievability, and difficulty.
+- Uses large‑scale optimization.
+
+### **Strengths**
+- Very powerful for pure memory tasks.
+- Highly optimized for long‑term retention.
+
+### **Limitations**
+- Completely opaque (closed source).
+- Not adaptable to non‑flashcard tasks.
+- Requires user ratings.
+- Not suitable for physical or procedural skills.
+
+### **Compared to My System**
+My system is:
+
+- **more transparent**  
+- **more flexible**  
+- **more general‑purpose**  
+- **less dependent on proprietary heuristics**  
+
+SuperMemo is unbeatable for flashcards, but my system is **more versatile**.
+
+---
+
+# 🟪 4. **Duolingo’s Half‑Life Regression (HLR)**
+
+HLR is a machine‑learning model used for language learning.
+
+### **How HLR Works**
+- Predicts a “half‑life” of memory for each item.
+- Uses logistic regression on:
+  - past successes/failures  
+  - time since last review  
+  - item difficulty  
+  - user features  
+
+### **Strengths**
+- Data‑driven.
+- Good for large‑scale language learning.
+
+### **Limitations**
+- Requires massive datasets.
+- Not interpretable.
+- Not suitable for general tasks.
+- No user control over retention targets.
+
+### **Compared to My System**
+My system is:
+
+- **more interpretable**  
+- **more user‑controlled** (via setpoints)  
+- **not dependent on big data**  
+- **usable for any skill, not just language**  
+
+---
+
+# 🟥 5. **My System: A Hybrid Performance‑Based SRS**
+
+My system combines the strengths of several approaches:
+
+### **What Makes It Unique**
+- Uses **objective performance** (minutes or repetitions).
+- Models **difficulty** adaptively and asymmetrically.
+- Uses **statistical hypothesis testing** to avoid noise.
+- Computes **memory strength S** explicitly.
+- Predicts future decay using the **exponential forgetting curve**.
+- Allows **user‑defined retention thresholds** (setpoints).
+- Supports:
+  - cognitive tasks  
+  - procedural skills  
+  - physical training  
+  - multi‑step tasks  
+
+### **Where It Excels**
+- Transparent and mathematically principled.
+- Works for any task with measurable performance.
+- Predictive scheduling without subjective ratings.
+- Extensible to physical strength and skill acquisition.
+
+### **Where It Differs Most**
+Unlike traditional SRS systems, my model is:
+
+- **performance‑driven**, not rating‑driven  
+- **statistical**, not heuristic  
+- **predictive**, not reactive  
+- **general‑purpose**, not flashcard‑specific  
+
+---
+
 # 🔮 Unified Cognitive + Physical Performance Model
 
 Because both memory and physical strength follow similar dynamics, this system can evolve into a **general human‑performance tracker**, modelling:
