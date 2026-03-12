@@ -1,4 +1,10 @@
-# Foreword: Please download the files from this directory for full functionality: https://drive.google.com/drive/folders/1L-fwrxBR3VVFAHA-AVLYjArMV5D2pSyg?usp=sharing
+# Foreword
+
+Please download these files for full functionality:
+1. https://huggingface.co/enacimie/Qwen2.5-1.5B-Instruct-Q4_K_M-GGUF/blob/main/qwen2.5-1.5b-instruct-q4_k_m-00001-of-00001.gguf
+2. Rename --> qwen2.5-1.5b-instruct-q4_k_m.gguf
+
+1. https://huggingface.co/Smoffyy/Qwen2.5-7B-Instruct-Q4_K-M-GGUF/blob/main/qwen2.5-7b-instruct-q4_k_m.gguf
 
 # 📘 Memory Strength Tracking System
 
