@@ -1,3 +1,5 @@
+# Foreword: Please download the files from this directory for full functionality: https://drive.google.com/drive/folders/1L-fwrxBR3VVFAHA-AVLYjArMV5D2pSyg?usp=sharing
+
 # 📘 Memory Strength Tracking System
 
 A FastAPI application that models **human memory**, **skill fluency**, and **performance decay** using the **exponential forgetting curve**.  
